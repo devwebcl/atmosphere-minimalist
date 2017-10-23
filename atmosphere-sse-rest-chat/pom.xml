@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.atmosphere.samples</groupId>
+    <artifactId>atmosphere-sse-rest-chat</artifactId>
+    <packaging>war</packaging>
+    <version>2.4.9</version>
+    <name>atmosphere-sse-rest-chat</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <jersey-version>1.18</jersey-version>
+        <client-version>2.3.2</client-version>
+        <!-- Atmosphere 2.4.x requires JDK 1.7 or newer -->
+        <atmosphere-version>2.4.9</atmosphere-version>
+        <logback-version>1.0.13</logback-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-jersey</artifactId>
+            <version>${atmosphere-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${jersey-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.atmosphere.client</groupId>
+            <artifactId>javascript</artifactId>
+            <version>${client-version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+	<build>
+	    <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		    <!--
+				mvn com.oracle.weblogic:weblogic-maven-plugin:deploy
+
+				mvn com.oracle.weblogic:weblogic-maven-plugin:undeploy
+		     -->
+           <plugin>
+                <groupId>com.oracle.weblogic</groupId>
+                <artifactId>weblogic-maven-plugin</artifactId>
+                <version>12.1.3-0-0</version>
+                <configuration>
+                    <adminurl>t3://127.0.0.1:7001</adminurl>
+                    <user>weblogic</user>
+                    <password>welcome1</password>
+                    <upload>true</upload>
+                    <action>deploy</action>
+                    <remote>true</remote>
+                    <verbose>true</verbose>
+                    <source>target/${project.artifactId}-${project.version}.${project.packaging}</source>
+                    <name>${project.artifactId}</name>
+                    <targets>AdminServer</targets>
+                </configuration>
+            </plugin>
+	    </plugins>
+	</build>
+</project>
