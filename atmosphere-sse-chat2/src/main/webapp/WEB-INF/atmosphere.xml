@@ -1,0 +1,10 @@
+<atmosphere-handlers>
+
+		<applicationConfig>
+			<param-name>org.atmosphere.useWebSocket</param-name>
+			<param-value>false</param-value>
+		</applicationConfig>
+
+
+</atmosphere-handlers>
+
